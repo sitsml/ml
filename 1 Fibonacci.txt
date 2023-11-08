@@ -1,0 +1,44 @@
+def recursive_fibonacci(n):
+    if n <= 1:
+        return n
+    else:
+        return recursive_fibonacci(n-1) + recursive_fibonacci(n-2)
+
+def non_recursive_fibonacci(n):
+    first = 0
+    second = 1
+    print(first)
+    print(second)
+    while n - 2 > 0:
+        third = first + second
+        first = second
+        second = third
+        print(third)
+        n -= 1
+
+if __name__ == "__main__":
+    n = int(input("Enter the number: "))
+    
+    print("Recursive")
+    for i in range(n):
+        print(recursive_fibonacci(i))
+    
+    print("Non-Recursive")
+    non_recursive_fibonacci(n)
+
+Recursive:
+Time Complexity - O(2^n) Exponential time
+Space Complexity - O(n) Linear time
+
+Non-recursive(Iterative):
+Time Complexity - O(n)
+Space Complexity - O(n)
+
+Iterative algorithm design issues:
+1)termination condition
+2)initialization
+3)correct loop variant
+4)stopping criteria
+5)array referencing
+
+Big O is denotes upper bound.

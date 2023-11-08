@@ -1,0 +1,247 @@
+                                   ___                _   _           _     
+  /\  /\__ _ _ __  _ __  _   _    / _ \_ __ __ _  ___| |_(_) ___ __ _| |___ 
+ / /_/ / _` | '_ \| '_ \| | | |  / /_)/ '__/ _` |/ __| __| |/ __/ _` | / __|
+/ __  / (_| | |_) | |_) | |_| | / ___/| | | (_| | (__| |_| | (_| (_| | \__ \
+\/ /_/ \__,_| .__/| .__/ \__, | \/    |_|  \__,_|\___|\__|_|\___\__,_|_|___/
+            |_|   |_|    |___/                                              
+			@@@ Encoded By cmV4b3I and VjFBQ0s
+
+A13
+Write a smart contract on a test network, for Bank account of a customer for following
+operations
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract Banking{
+    mapping(address => uint256) balances;
+    function Deposit() public payable {
+        balances[msg.sender]+=msg.value;
+    }
+
+    function Withdraw(uint256 Amount)public {
+        uint256 NewAmount=Amount * 1e18;
+        require(NewAmount <=balances[msg.sender],"Paisa Nahi Hai Lavade");
+        balances[msg.sender]-=NewAmount;
+        payable(msg.sender).transfer(NewAmount);
+    }
+    function ShowBalance()public view returns(uint256)  {
+        return( balances[msg.sender]/ 1 ether);
+    }
+}
+
+A14
+Write a program in solidity to create Student data. Use the following constructs
+Deploy this as smart contract on Ethereum and Observe the transaction fee and Gas values.
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract StudentData {
+    struct Student {
+        uint256 studentID;
+        string name;
+        uint8 age;
+    }
+
+    Student[] public students;
+    address public owner;
+
+    constructor() {
+        owner = msg.sender;
+    }
+
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Only the owner can perform this operation");
+        _;
+    }
+
+    function addStudent(uint256 _studentID, string memory _name, uint8 _age) public onlyOwner {
+        Student memory newStudent = Student(_studentID, _name, _age);
+        students.push(newStudent);
+    }
+
+    function getStudentCount() public view returns (uint256) {
+        return students.length;
+    }
+
+    function getStudent(uint256 index) public view returns (uint256, string memory, uint8) {
+        require(index < students.length, "Student index out of bounds");
+        Student memory student = students[index];
+        return (student.studentID, student.name, student.age);
+    }
+
+    fallback() external {
+        revert("Invalid function call");
+    }
+}
+
+
+\\ THEORY
+
+1. Symmetric Key Cryptography: Symmetric encryption uses the same key for both encryption and decryption, making it efficient but requiring secure key distribution.
+2. Asymmetric Key Cryptography (Public Key Cryptography): Asymmetric encryption uses a pair of keys (public and private) for secure communication, with the public key used for encryption and the private key for decryption.
+3. Elliptic Curve Cryptography (ECC): ECC is a public key cryptography method that uses the mathematics of elliptic curves to provide strong security with relatively small key sizes.
+4. Cryptographic Hash Functions (e.g., SHA-256): Hash functions take input data and produce a fixed-size hash code, providing data integrity and verification.
+5. Digital Signature Algorithm (DSA): DSA is a widely used algorithm for creating digital signatures, ensuring the authenticity and integrity of digital messages or documents.
+6. Merkle Trees: Merkle trees are hierarchical data structures used in cryptocurrencies and file systems to efficiently verify data integrity and consistency by recursively hashing and combining data blocks. 
+1. History of Blockchain: Blockchain technology was conceptualized in 2008 by Satoshi Nakamoto as the underlying technology for Bitcoin. It was designed to provide a decentralized and secure ledger for cryptocurrency transactions.
+2. Centralized vs. Decentralized Systems: Centralized systems have a single point of control and are more vulnerable to single points of failure, whereas decentralized systems distribute control and data across a network, providing greater resilience and transparency.
+3. Layers of Blockchain:
+   - Application Layer: Interfaces and applications built on top of the blockchain.
+   - Execution Layer: Smart contract execution and processing.
+   - Semantic Layer: Interpretation of data and transactions.
+   - Propagation Layer: Dissemination of transactions and blocks.
+   - Consensus Layer: Agreement among participants on the validity of transactions.
+4. Importance of Blockchain: Blockchain is important for its potential to create trust in a trustless environment, reduce fraud, enhance transparency, and enable decentralized applications in various industries, including finance, supply chain, and healthcare.
+5. Limitations of Centralized Systems: Centralized systems can be vulnerable to single points of failure, censorship, lack of transparency, and inefficiency due to intermediaries.
+6. Blockchain Adoption So Far: Blockchain has seen adoption in sectors like finance (cryptocurrencies), supply chain (for tracking products), healthcare (for secure patient data sharing), and voting systems (to enhance transparency and security). However, it still faces challenges like scalability and regulatory hurdles in various industries.
+1. Types of Blockchain Platforms:
+   - Public Blockchain: Open and permissionless, allowing anyone to participate, such as Bitcoin and Ethereum.
+   - Private Blockchain: Closed and permissioned, with access controlled by a single entity or a consortium, often used for enterprise applications.
+   - Consortium Blockchain: Shared among a group of organizations with some level of control over the network, as seen in some Hyperledger frameworks.
+2. Blockchain Platforms:
+   - Bitcoin: The first cryptocurrency, operating on a public blockchain with the Proof of Work consensus algorithm.
+   - Ethereum: A public blockchain with a focus on smart contracts, using the Proof of Stake consensus algorithm in its transition to Ethereum 2.0.
+   - Hyperledger: An open-source blockchain project with several frameworks for enterprise use.
+   - IOTA: A cryptocurrency designed for the Internet of Things (IoT) with a unique Tangle structure.
+   - Corda (R3): A blockchain platform designed for financial institutions and enterprises to facilitate financial transactions and data sharing.
+3. Consensus in Blockchain:
+   - Consensus Approach: The method by which blockchain participants agree on the validity of transactions and the order in which they are added to the ledger.
+   - Consensus Elements: Participants, rules, and mechanisms for achieving agreement.
+   - Consensus Algorithms: Protocols or rulesets that determine how consensus is reached, such as Proof of Work, Proof of Stake, and more.
+4. Consensus Algorithms:
+   - Proof of Work (PoW): Miners solve complex mathematical puzzles to add blocks to the blockchain, as seen in Bitcoin.
+   - Byzantine General Problem: A theoretical problem addressing consensus among unreliable participants, leading to the development of Byzantine Fault Tolerant consensus algorithms.
+   - Proof of Stake (PoS): Validators are chosen to create new blocks based on the amount of cryptocurrency they "stake" or hold, as seen in Ethereum's transition to PoS.
+   - Proof of Elapsed Time (PoET): A consensus mechanism designed by Intel to ensure fairness and security in permissioned blockchains.
+   - Proof of Activity (PoA): A hybrid consensus mechanism combining PoW and PoS for added security and efficiency.
+   - Proof of Burn: Users intentionally "burn" or destroy cryptocurrency to gain mining or staking privileges, aiming to reduce hoarding and increase network security. 
+1. Introduction to Cryptocurrency:
+   Cryptocurrency is a digital or virtual form of currency that relies on cryptography for security. It operates on decentralized blockchain technology, offering secure and transparent transactions outside the control of central authorities like banks or governments.
+2. Bitcoin and the Cryptocurrency:
+   Bitcoin (BTC) was the first cryptocurrency, created in 2009 by an entity or individual known as Satoshi Nakamoto. It serves as a decentralized digital currency and a store of value, enabling peer-to-peer transactions without intermediaries.
+3. Cryptocurrency Basics:
+   - Digital and decentralized: Cryptocurrencies exist only in digital form and operate on blockchain technology, a distributed ledger that ensures security and transparency.
+   - Anonymity and transparency: Transactions are pseudonymous, with wallet addresses used, but the transaction history is publicly recorded on the blockchain.
+   - Limited supply: Many cryptocurrencies have a capped supply, such as Bitcoin's 21 million coins, which can affect their value over time.
+4. Types of Cryptocurrency:
+   There are thousands of cryptocurrencies, including Bitcoin, Ethereum (ETH), Ripple (XRP), Litecoin (LTC), and many others, each with unique features, use cases, and underlying technologies.
+5. Cryptocurrency Usage:
+   Cryptocurrencies can be used for various purposes, including:
+   - Digital payments
+   - Investment and store of value
+   - Smart contracts and decentralized applications (DApps)
+   - Cross-border remittances
+   - Fundraising through Initial Coin Offerings (ICOs)
+6. Cryptowallets:
+   Cryptowallets are software or hardware tools used to store, manage, and transact cryptocurrencies. Some popular ones include:
+   - Metamask: A browser extension wallet mainly used for interacting with Ethereum-based DApps.
+   - Coinbase: A user-friendly online wallet and exchange platform for buying, selling, and storing various cryptocurrencies.
+   - Binance: A cryptocurrency exchange that also offers a wallet service for trading and storing a wide range of cryptocurrencies.
+Ethereum:
+- Ethereum is a decentralized blockchain platform that enables the creation of decentralized applications (DApps) and smart contracts.
+- It uses its native cryptocurrency called Ether (ETH) for transactions and operates on a blockchain with a global network of nodes.
+Types of Ethereum Networks:
+- Mainnet: The production version of the Ethereum blockchain where real transactions and smart contracts operate.
+- Testnet: Test networks for developers to experiment with new code and features without using real Ether.
+- Private Networks: Custom Ethereum networks set up by organizations or developers for specific purposes and with controlled access.
+Ethereum Virtual Machine (EVM):
+- EVM is the runtime environment for executing smart contracts on the Ethereum network, ensuring code consistency and security.
+Introduction to Smart Contracts:
+- Smart contracts are self-executing contracts with the terms of the agreement written in code. They automatically execute when predefined conditions are met, eliminating the need for intermediaries.
+Purpose and Types of Smart Contracts:
+- Smart contracts serve various purposes, including automated payments, decentralized governance, and supply chain management.
+- Types include financial contracts (e.g., for lending and borrowing), identity verification, and decentralized applications (DApps).
+Implementing and Deploying Smart Contracts using Solidity:
+- Solidity is the most popular programming language for writing Ethereum smart contracts.
+- Developers write, test, and compile smart contracts using Solidity and then deploy them onto the Ethereum blockchain.
+Swarm (Decentralized Storage Platform):
+- Swarm is an Ethereum project aiming to provide a decentralized storage solution for DApps. It allows users to store and retrieve data from a distributed network of nodes, ensuring data integrity and availability.
+Whisper (Decentralized Messaging Platform):
+- Whisper is a communication protocol developed by Ethereum for secure and private messaging between DApps and users on the Ethereum network.
+- It enables encrypted and decentralized communication, essential for privacy and security in DApps.
+1. Retail:
+   - Supply Chain Transparency: Companies like Walmart and IBM use blockchain to track and authenticate the origins of products, ensuring authenticity, quality, and compliance with regulations.
+2. Banking and Financial Services:
+   - Cross-Border Payments: Ripple's blockchain-based solutions enable faster and cheaper cross-border transactions for financial institutions.
+   - Digital Identity: Blockchain can help banks and organizations verify customer identities securely and reduce fraud.
+3. Government Sector:
+   - Digital Voting: Estonia implemented blockchain for secure and transparent e-voting, enhancing the integrity of the electoral process.
+   - Land Registry: Honduras and Sweden use blockchain to secure land ownership records, reducing fraud and improving accessibility.
+4. Healthcare:
+   - Medical Records: Blockchain enhances the security and interoperability of patient records, allowing secure sharing among healthcare providers.
+   - Drug Traceability: Blockchain tracks the production and distribution of pharmaceuticals, improving the authenticity of drugs and reducing counterfeit products.
+5. IoT (Internet of Things):
+   - IoT Security: Blockchain helps secure IoT devices and data by providing a tamper-proof ledger and ensuring device identity and data integrity.
+6. Energy and Utilities:
+   - Smart Grids: Blockchain facilitates peer-to-peer energy trading and grid management, enabling more efficient and decentralized energy distribution.
+   - Carbon Credits: Companies like IBM and Energy Web Foundation use blockchain to track and trade carbon credits, reducing carbon emissions.
+Blockchain Integration with other Domains:
+- Music and Media: Projects like Audius and Ujo Music use blockchain to empower artists by ensuring fair compensation and transparent royalty distribution.
+- Education: Blockchain verifies academic credentials and certifications, reducing fraud and simplifying verification processes.
+- Gaming: Blockchain-based in-game assets and digital collectibles provide true ownership and interoperability in the gaming industry.
+- Real Estate: Platforms like Propy use blockchain to streamline property transactions and reduce the risk of fraud in real estate deals.
+- Agriculture: Blockchain is used for tracking the origins of agricultural products, ensuring food safety and traceability.
+- Insurance: Blockchain automates and streamlines insurance claims processing, reducing fraud and enhancing transparency.
+These case studies showcase the versatility of blockchain technology in a wide range of sectors, addressing issues related to transparency, security, and efficiency.
+Gas: Gas is a measure of computational work or resources required to execute a transaction or a smart contract on the Ethereum network. It is used to determine the transaction fee (in Ether) that users must pay to miners for processing their transactions.
+Gas Limit: The gas limit is the maximum amount of gas that a user is willing to spend on a transaction. It is set by the user when creating a transaction. If a transaction requires more gas than the specified limit, it will be automatically rejected by the network.
+Gas Price: Gas price is the amount of Ether (cryptocurrency) a user is willing to pay per unit of gas. It is specified by the user when creating a transaction and determines the priority of the transaction. Miners typically prioritize transactions with higher gas prices because they earn more for processing them.
+Gas Cost: The gas cost is the actual amount of Ether a user pays for executing a transaction. It is calculated by multiplying the gas used by the gas price. The gas cost is deducted from the sender's account and rewarded to the miner who includes the transaction in a block.
+Gas Refund: In some cases, when a smart contract execution results in a reduction of storage usage, a gas refund is provided to the user. This encourages users to clean up unnecessary data from the blockchain.
+Out of Gas: If a transaction runs out of gas before its execution is complete, it will fail, and any changes made to the blockchain are rolled back. Users need to ensure they set an appropriate gas limit to avoid this situation.
+Gas Token: Some projects and networks have introduced gas tokens that can be used to save on gas costs by taking advantage of lower gas prices during periods of network congestion.
+In the context of blockchain technology, a "nonce" is a crucial component used in the process of creating and validating blocks in a blockchain, particularly in proof-of-work (PoW) based blockchains like Bitcoin and Ethereum. Here's what a nonce is and how it functions:
+*Nonce*:
+- A nonce is a short form of "number used once."
+- It is a 32-bit (4-byte) or 64-bit (8-byte) integer value.
+- The nonce is included in the block header, and miners repeatedly change its value in an attempt to find a valid block hash.
+*Role of a Nonce*:
+- Miners use the nonce to make a block's hash meet certain criteria or requirements defined by the blockchain's consensus algorithm. In PoW systems, this involves finding a hash that is below a specific target value.
+- The nonce is part of the block header, along with other data such as the timestamp, previous block's hash, and the list of transactions. By adjusting the nonce, miners aim to create a block hash that, when hashed, has a certain number of leading zeros (the target).
+*Mining Process*:
+1. Miners select a list of pending transactions to include in a new block.
+2. They start with a nonce set to a specific value (usually 0) and hash the block header (including the nonce).
+3. If the resulting hash doesn't meet the required criteria (e.g., it doesn't have enough leading zeros), miners increment the nonce and hash again.
+4. Miners repeat this process, changing the nonce until they find a valid hash that satisfies the criteria.
+5. Once a valid hash is found, the miner broadcasts the block to the network, proving they did the computational work.
+**Proof of Work (PoW)**:
+- In PoW-based blockchains like Bitcoin and Ethereum, the nonce is a critical element in the mining process. Miners compete to find a nonce that, when combined with other block data, results in a hash that meets the network's current difficulty target.
+*Security*:
+- The inclusion of a nonce in the block header ensures that miners expend computational effort, making it computationally expensive to find a valid block hash. This is a fundamental security feature in PoW blockchains, as it prevents the rapid creation of new blocks and helps maintain network security.
+In summary, a nonce is a number used in the mining process of PoW-based blockchains to find a valid block hash that meets certain criteria. It is essential for securing the network and confirming new transactions in the blockchain.
+ABI stands for "Application Binary Interface." In the context of blockchain, it is a crucial component of smart contracts and their interactions with the Ethereum Virtual Machine (EVM). Here's what ABI is and when it is generated:
+**ABI (Application Binary Interface)**:
+- ABI is a set of rules and conventions that define how functions in a smart contract can be called and how data should be encoded for communication between different parts of the Ethereum network.
+- It specifies the method signatures, input parameters, and output data formats for the functions within a smart contract, allowing external applications, such as decentralized applications (DApps), to interact with the contract.
+*Generation of ABI*:
+- The ABI for a smart contract is generated during the compilation of the smart contract's source code. It is typically created by the Solidity compiler or other smart contract development tools.
+- When you compile your smart contract written in a language like Solidity, the compiler generates a binary representation of the contract, which includes the bytecode that gets deployed to the blockchain and the ABI.
+- The ABI is essential for DApps, wallets, and other external systems to understand how to interact with the smart contract. It provides the necessary information for encoding function calls and decoding the results.
+In practice, once you've developed and compiled a smart contract, the generated ABI is made available to users and developers who want to interact with your contract. It serves as a crucial interface that allows external entities to invoke functions, query data, and interact with the contract securely and correctly on the Ethereum blockchain.
+ERC-20 (Ethereum Request for Comment 20):
+ERC-20 is the most common token standard on the Ethereum blockchain.
+It outlines a set of rules and functions that define how tokens should behave, including functions for transferring tokens, checking balances, and approving spending by other addresses.
+Most of the tokens on the Ethereum network, such as DAI, Chainlink (LINK), and Uniswap (UNI), adhere to the ERC-20 standard.
+ERC-721 (Ethereum Request for Comment 721):
+ERC-721 is a standard for creating non-fungible tokens (NFTs), which are unique digital assets that represent ownership of a specific item, collectible, or piece of content.
+Each NFT has a distinct value, making it ideal for applications like digital art, gaming items, and collectibles.
+CryptoKitties, Decentraland LAND, and many other collectibles and art NFTs are based on ERC-721.
+ERC-1155 (Ethereum Request for Comment 1155):
+ERC-1155 is a more versatile token standard that supports both fungible and non-fungible tokens within a single contract.
+This standard is popular for blockchain games and applications where a variety of token types are needed, providing efficiency in managing multiple assets in a single contract.
+ERC-777 (Ethereum Request for Comment 777):
+ERC-777 is an improved token standard that builds upon ERC-20 and ERC-223. It introduces more advanced features and is backward-compatible with ERC-20.
+It offers additional functionalities, such as improved token management, increased security, and enhanced token interaction with smart contracts.
+ERC-621 (Ethereum Request for Comment 621):
+ERC-621 is a proposed standard for extending the supply of an existing token, making it more flexible for token issuers to increase or decrease the total token supply.
+Tokens and coins are both digital assets, but they serve different purposes and have distinct characteristics in the world of cryptocurrencies:
+*Token*:
+- A token is a digital asset built on an existing blockchain platform, like Ethereum. Tokens are created through smart contracts on these platforms.
+- Tokens represent various assets or utility, such as assets (real estate, art), rights (voting, dividends), or access to specific features in a blockchain-based application (DApp).
+- Tokens do not have their own independent blockchain but rely on the infrastructure of the blockchain they are built upon.
+*Coin*:
+- A coin, often referred to as cryptocurrency, is a digital asset with its own independent blockchain. Coins are native to their respective blockchains and serve as a means of exchange and store of value.
+- Coins have their own miners, nodes, and network infrastructure, which is separate from other blockchains.
+- Examples of coins include Bitcoin (BTC), Ethereum (ETH), and Litecoin (LTC).
+In summary, the primary distinction between tokens and coins lies in their underlying infrastructure. Tokens are created on existing blockchains and represent various assets, while coins have their own independent blockchains and serve as digital currencies for transactions and value storage. Both tokens and coins are important in the cryptocurrency ecosystem, but they serve different purposes and have different use cases.
+
